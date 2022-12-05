@@ -1,0 +1,415 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>{{stock.shortName}} </title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-2.14.0.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+  <!-- Favicons -->
+  <link href=" {% static 'assets/img/cloud-computing-icon.png' %}  " rel="icon">
+  <link href=" {% static 'assets/img/apple-touch-icon.png' %} " rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href=" {% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %} " rel="stylesheet">
+  <link href=" {% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %} " rel="stylesheet">
+  <link href=" {% static 'assets/vendor/boxicons/css/boxicons.min.css' %} " rel="stylesheet">
+  <link href=" {% static 'assets/vendor/quill/quill.snow.css' %} " rel="stylesheet">
+  <link href=" {% static 'assets/vendor/quill/quill.bubble.css' %} " rel="stylesheet">
+  <link href=" {% static 'assets/vendor/remixicon/remixicon.css' %} " rel="stylesheet">
+  <link href=" {% static 'assets/vendor/simple-datatables/style.css' %} " rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href=" {% static 'assets/css/style.css' %} " rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: NiceAdmin - v2.4.1
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body class="toggle-sidebar">
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href=""  class="logo d-flex align-items-center">
+        <img src=" {% static 'assets/img/cloud-computing-icon.png' %} " alt="">
+        <span class="d-none d-lg-block">Group10</span>
+      </a>
+      
+    </div><!-- End Logo -->
+
+    <div class="search-bar">
+      <form class="search-form d-flex align-items-center" method="get" action="{% url 'search' %}">
+        <input type="text" name="query" placeholder="Search for a ticker..." title="Enter search keyword">
+        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+      </form>
+    </div><!-- End Search Bar -->
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle " href="#">
+            <i class="bi bi-search"></i>
+          </a>
+        </li><!-- End Search Icon-->
+
+        
+
+        <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <img src=" {% static 'assets/img/user.png' %} " alt="Profile" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2">{{request.user}}</span>
+          </a>
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="#">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+  </header><!-- End Header -->
+
+ 
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>{{stock.shortName}} ({{ticker}})</h1>
+    </div><!-- End Page Title -->
+    <section class="section">
+      <div class="row">
+    <div class="col-lg-8">
+      <div class="card">
+        <div class="card-body">
+          <br>
+          <i class="bi bi-calendar-fill"></i>&nbsp;
+          <input type="text" name="daterange" value=" {{ week_ago }} - {{ today }}"/>
+          <h5 class="card-title">Price History</h5>
+          <button id = "tloading" class="btn btn-primary" type="button" disabled>
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Loading...
+          </button>
+          <div id="chart"></div>
+        </div>
+      </div>
+      
+      </div>
+        <div class="col-lg-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Summary</h5>
+    
+              <!-- Default Table -->
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td>Open</td>
+                    <td><b>{{stock.open}}</b></td>
+                    <td>Close</td>
+                    <td><b>{{close}}</b></td>
+                  </tr>
+                  <tr>
+                    <td>Previous Close</td>
+                    <td><b>{{stock.previousClose}}</b></td>
+                    <td>Market Cap</td>
+                    <td><b>{{stock.marketCap}}</b></td>   
+                  </tr>
+                  <tr>
+                    <td>Bid</td>
+                    <td><b>{{stock.bid}} </b></td>
+                    <td>Beta (5Y Monthly)</td>
+                    <td><b>{{stock.beta}}</b></td>
+                  </tr>
+                  <tr>
+                    <td>Ask</td>
+                    <td><b>{{stock.ask}}</b></td>
+                    <td>EPS (TTM)</td>
+                    <td><b>{{stock.trailingEps}}</b></td>
+                  </tr>
+                  <tr>
+                    <td>Day's Range</td>
+                    <td><b>{{stock.dayLow}}-{{stock.dayHigh}}</b></td>
+                    <td>52 Week Range</td>
+                    <td><b>{{stock.fiftyTwoWeekLow}}-{{stock.fiftyTwoWeekHigh}}</b></td>
+                  </tr>
+                  <tr>
+                    <td>1y Target Median</td>
+                    <td><b>{{stock.targetMedianPrice}}</b></td>
+                    <td>1y Target Mean</td>
+                    <td><b>{{stock.targetMeanPrice}}</b></td>
+                  </tr>
+                  <tr>
+                    <td>Volume</td>
+                    <td><b>{{stock.regularMarketVolume}}</b></td>
+                    <td>Average Volume</td>
+                    <td><b>{{stock.averageVolume}}</b></td>
+                  </tr>
+                </tbody>
+              </table>
+              <!-- End Default Table Example -->
+            </div>
+          </div>
+            
+        
+        
+        
+        
+            </div>
+          </div>
+          
+        
+    
+          
+          
+    
+    {% block javascript %}
+    <script>
+      /*
+          On submiting the form, send the POST ajax
+          request to server and after successfull submission
+          display the object.
+      */
+      document.addEventListener("DOMContentLoaded", () => {
+          // preventing from page reload and default actions
+          // serialize the data for sending the form data.
+          var ticker = '{{ticker}}'
+          var today = '{{today}}'
+          var week_ago = '{{ week_ago }}'
+
+          $.ajax({
+            type: 'GET',
+            url: "{% url 'loadstock' %}",
+            data: {"ticker": ticker,"start" : week_ago, "finish" : today},
+            success: function (response) {
+            var response = response['{{ticker}}']
+            var index = response['index']  
+            var open = response['open'] 
+            var high = response['high']  
+            var low = response['low'] 
+            var close = response['close'] 
+            console.log(index)
+           
+            var trace1 = {
+  
+  x: index, 
+  
+  close: close, 
+  
+  decreasing: {line: {color: '#f70d1'}}, 
+  
+  high: high, 
+  
+  increasing: {line: {color: '#12D900'}}, 
+  
+  line: {color: 'rgba(31,119,180,1)'}, 
+  
+  low: low, 
+  
+  open: open, 
+  
+  type: 'candlestick', 
+  xaxis: 'x', 
+  yaxis: 'y'
+};
+trace1['x'] = index;
+trace1['open'] = open;
+trace1['high'] = high;
+trace1['low'] = low;
+trace1['close'] = close;
+console.log(trace1['x'])
+
+var data = [trace1];
+
+var layout = {
+  dragmode: 'zoom', 
+  margin: {
+    r: 10, 
+    t: 25, 
+    b: 40, 
+    l: 60
+  }, 
+  showlegend: false, 
+  xaxis: {
+    autorange: true, 
+    domain: [0, 1], 
+    range: ['2022-09-05 12:00', '2022-10-30 12:00'], 
+    rangeslider: {range: ['2022-09-01 12:00', '2022-10-30 12:00']}, 
+    title: 'Date', 
+    type: 'date'
+  }, 
+  yaxis: {
+    autorange: true, 
+    domain: [0, 1], 
+    range: [114.609999778, 137.410004222], 
+    type: 'linear'
+  }
+};
+document.getElementById("tloading").style.display = "none"
+Plotly.newPlot('chart', data, layout);
+              
+            },
+            error: function (response) {
+                console.log(response)
+            }
+        })
+         
+      })
+  </script>
+    
+        
+        
+
+<script>
+  $(function() {
+    $('input[name="daterange"]').daterangepicker({
+      opens: 'left'
+    }, function(start, end, label) {
+      console.log("A new date selection was made: " + start.format('MM-DD-YYYY') + ' to ' + end.format('MM-DD-YYYY'));
+
+      var ticker = '{{ticker}}'
+      document.getElementById("chart").innerHTML = ""
+      document.getElementById("tloading").style.display = "inline"
+        $.ajax({
+            type: 'GET',
+            url: "{% url 'loadstock' %}",
+            data: {"ticker": ticker,"start" : start.format('MM-DD-YYYY'), "finish" : end.format('MM-DD-YYYY')},
+            success: function (response) {
+            var response = response['{{ticker}}']
+            var index = response['index']  
+            var open = response['open'] 
+            var high = response['high']  
+            var low = response['low'] 
+            var close = response['close'] 
+            console.log(index)
+           
+            var trace1 = {
+  
+  x: index, 
+  
+  close: close, 
+  
+  decreasing: {line: {color: '#f70d1'}}, 
+  
+  high: high, 
+  
+  increasing: {line: {color: '#12D900'}}, 
+  
+  line: {color: 'rgba(31,119,180,1)'}, 
+  
+  low: low, 
+  
+  open: open, 
+  
+  type: 'candlestick', 
+  xaxis: 'x', 
+  yaxis: 'y'
+};
+trace1['x'] = index;
+trace1['open'] = open;
+trace1['high'] = high;
+trace1['low'] = low;
+trace1['close'] = close;
+console.log(trace1['x'])
+
+var data = [trace1];
+
+var layout = {
+  dragmode: 'zoom', 
+  margin: {
+    r: 10, 
+    t: 25, 
+    b: 40, 
+    l: 60
+  }, 
+  showlegend: false, 
+  xaxis: {
+    autorange: true, 
+    domain: [0, 1], 
+    range: ['2022-09-05 12:00', '2022-10-30 12:00'], 
+    rangeslider: {range: ['2022-09-01 12:00', '2022-10-30 12:00']}, 
+    title: 'Date', 
+    type: 'date'
+  }, 
+  yaxis: {
+    autorange: true, 
+    domain: [0, 1], 
+    range: [114.609999778, 137.410004222], 
+    type: 'linear'
+  }
+};
+document.getElementById("tloading").style.display = "none"
+Plotly.newPlot('chart', data, layout);
+              
+            },
+            error: function (response) {
+                console.log(response)
+            }
+        })
+    });
+  });
+</script>
+    {% endblock javascript %}
+</section>
+  </main><!-- End #main -->
+
+  <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+      <!-- All the links in the footer should remain intact. -->
+      <!-- You can delete the links only if you purchased the pro version. -->
+      <!-- Licensing information: https://bootstrapmade.com/license/ -->
+      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+      Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+    </div>
+  </footer><!-- End Footer -->
+
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src=" {% static 'assets/vendor/apexcharts/apexcharts.min.js' %} "></script>
+  <script src=" {% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %} "></script>
+  <script src=" {% static 'assets/vendor/chart.js/chart.min.js' %} "></script>
+  <script src=" {% static 'assets/vendor/echarts/echarts.min.js' %} "></script>
+  <script src=" {% static 'assets/vendor/quill/quill.min.js' %} "></script>
+  <script src=" {% static 'assets/vendor/simple-datatables/simple-datatables.js' %} "></script>
+  <script src=" {% static 'assets/vendor/tinymce/tinymce.min.js' %} "></script>
+  <script src=" {% static 'assets/vendor/php-email-form/validate.js' %} "></script>
+
+  <!-- Template Main JS File -->
+  <script src=" {% static 'assets/js/main.js' %} "></script>
+
+</body>
+
+</html>
