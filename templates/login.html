@@ -6,12 +6,11 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Pages / Login - NiceAdmin Bootstrap Template</title>
+  <title>Login</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
-
+  <link href=" {% static 'assets/img/cloud-computing-icon.png' %}  " rel="icon">
   <!-- Favicons -->
-  <link href=" {% static 'assets/img/favicon.png' %} " rel="icon">
   <link href=" {% static 'assets/img/apple-touch-icon.png' %} " rel="apple-touch-icon">
 
   <!-- Google Fonts -->
@@ -67,7 +66,7 @@
                     {% csrf_token %}
                   
                     <div class="col-12">
-                      <label for="username" class="form-label">E-mail</label>
+                      <label for="username" class="form-label">Username</label>
                       <input type="text" name="username" class="form-control" id="username" required>
                       <div class="invalid-feedback">Please enter your e-mail!</div>
                     </div>
@@ -78,12 +77,6 @@
                       <div class="invalid-feedback">Please enter your password!</div>
                     </div>
 
-                    <div class="col-12">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
-                        <label class="form-check-label" for="rememberMe">Remember me</label>
-                      </div>
-                    </div>
                     {% for message in messages %}
                     <div class="alert alert-primary bg-primary text-light border-0 alert-dismissible fade show" role="alert">
                       {{message}}
