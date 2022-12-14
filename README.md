@@ -2,14 +2,14 @@
 ## Group 10 - Module ECS781P - Cloud Computing
 ### Miguel Almodovar, Venkatraman, Satyam Sharma, Shaurya Rana
 
-We have built an app with Django which dynamically hits the YFinance RestAPI and displays the 
+We have built an app with Django which dynamically hits the YFinance RestAPI and displays the stocks details, charts and summaries for the stock ticker entered in the search bar. 
 
 
 
 
 
 
-Rest API
+## Rest API
 ### 1- Create user operation
 ```
 @uauthenticated_user
