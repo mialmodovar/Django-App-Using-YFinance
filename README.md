@@ -4,52 +4,14 @@
 
 ## Funtionality
 
-We have built an app with Django which dynamically hits the YFinance RestAPI and displays the stocks details, charts and summaries for the stock ticker entered in the search bar. As displayed in the screenshot below the the user can filter by stock ticker name and date range. The data is retrieved based on the follwoing two ways - 
+## 1. Dynamic REST API
+We have built an app with Django which dynamically hits the YFinance RestAPI and displays the stocks details, charts and summaries for the stock ticker entered in the search bar. As displayed in the screenshots below the the user can filter by stock ticker name and date range. The data is retrieved based on the follwoing two ways - 
 
-1) Each search query hits the RestAPI and returns the results via html and then rendered as summary stats and boxplots on the webpage.  
+### a) Each search query hits the RestAPI and returns the results via HTMA and then rendered as summary stats and boxplots on the webpage.  
 
 <img width="946" alt="image" src="https://user-images.githubusercontent.com/85103905/207667383-0b918a9f-7201-4dca-87d6-345086380061.png">
 
-2) The stocks historical price data is recived as a JSON file using an AJAX request.
-
-<img width="957" alt="image" src="https://user-images.githubusercontent.com/85103905/207668800-3a359d69-50e3-4642-8ea9-54394630b825.png">
-
-
-
-## Rest API
-### 1- Create user operation
-```
-@uauthenticated_user
-def registerPage(request):
-    form = UserForm()
-    if request.method == 'POST':
-        form = UserForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            messages.success(request, 'Your account was created')
-            return redirect('login')
-        messages.error(request, 'Your password or user is invalid')
-        return redirect('register')
-    context = {'form' : form}
-    return render(request, 'register.html', context)
-```
-### 2-Reading user details and logging them in
-```
-@unauthenticated_user
-def loginPage(request):
-    if request.method == 'POST':
-        username= request.POST.get('username')
-        password= request.POST.get('password')
-        user= authenticate(request, username=username, password=password)
-        if user == None:
-             messages.error(request, 'Login information incorrect')
-             return redirect('login')
-        login(request,user)
-        return redirect('index')
-    context = {}
-    return render(request, 'login.html',context)
-```
-### 3- Gets stock info from external api and returns it via html
+### 1.1 - Gets stock info from external api and returns it via html
 ```
 @login_required(login_url= 'login')
 def stock(request,pk):
@@ -62,7 +24,12 @@ def stock(request,pk):
     context = { 'ticker': pk,'today': today, 'week_ago': week_ago, 'stock':stock.info, 'close':close}
     return render(request,'stocks.html',context)
 ```
-### 4- Gets stock history price from external api and returns it as json
+
+### b) The stocks historical price data is recived as a JSON file using an AJAX request and then formulated as summary stats.
+
+<img width="957" alt="image" src="https://user-images.githubusercontent.com/85103905/207668800-3a359d69-50e3-4642-8ea9-54394630b825.png">
+
+### 1.2 - Gets stock history price from external api and returns it as json
 ```
 @login_required(login_url= 'login')
 def loadstock(request):
@@ -85,7 +52,7 @@ def loadstock(request):
     low = data.Low.values.tolist()
     return JsonResponse( {pk :{'index': index, 'close': close, 'open': open,'high': high, 'low': low}}, status = 200)
 ```
-5. Setting up URLs 
+### 1.3. Setting up URLs 
 
 ```
 from django.urls import path
@@ -103,4 +70,41 @@ path('register',views.registerPage,name='register')
 
     
 ]
+```
+## 2. User Management - 
+
+There is a user management system in place using a SQLite DB as the backend for storing persistent user data.
+The below code snippets otline how the users are created, logged in and their data persisted on the backend DB.
+
+### 2.1- Create user operation
+```
+@uauthenticated_user
+def registerPage(request):
+    form = UserForm()
+    if request.method == 'POST':
+        form = UserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            messages.success(request, 'Your account was created')
+            return redirect('login')
+        messages.error(request, 'Your password or user is invalid')
+        return redirect('register')
+    context = {'form' : form}
+    return render(request, 'register.html', context)
+```
+### 2.2 -Reading user details and logging them in
+```
+@unauthenticated_user
+def loginPage(request):
+    if request.method == 'POST':
+        username= request.POST.get('username')
+        password= request.POST.get('password')
+        user= authenticate(request, username=username, password=password)
+        if user == None:
+             messages.error(request, 'Login information incorrect')
+             return redirect('login')
+        login(request,user)
+        return redirect('index')
+    context = {}
+    return render(request, 'login.html',context)
 ```
