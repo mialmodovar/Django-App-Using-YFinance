@@ -108,3 +108,34 @@ def loginPage(request):
     context = {}
     return render(request, 'login.html',context)
 ```
+
+
+## 4. Security measures
+The Crypto Summariser aims to provide secured services to the customers. At the moment, we have implemented four security measures on our app to make sure to put customers at ease.
+#### Application serving over https
+
+Our application supports connection through HTTPS protocol with our certificate stored securely on the server.
+```
+#!/usr/bin/env bash
+
+export FLASK_APP=app_auth
+export FLASK_DEBUG=1
+python -m flask run --cert=cert.pem --key=key.pem
+
+````
+
+#### User accounts and access management with hash-based authentication
+
+All customers' passwords is stored after being hashed.
+```
+# Register customer information into the system
+new_user = User(email=email,
+                name=name,
+                password=generate_password_hash(password, method="sha256"))
+...
+# To reset user password
+new_password = generate_password_hash(newpwd2, method="sha256")
+````
+
+#### Securing the database with role-based policies
+On our Google Cloud Database instance, we make sure to create role-based policies so that only authorized service user with the right role and secret key has the right to interact with it. The authorized service account is securely stored in a .env file on our server.
