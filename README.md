@@ -7,7 +7,7 @@
 ## 1. Dynamic REST API
 We have built an app with Django which dynamically hits the YFinance RestAPI and displays the stocks details, charts and summaries for the stock ticker entered in the search bar. As displayed in the screenshots below the the user can filter by stock ticker name and date range. The data is retrieved based on the follwoing two ways - 
 
-### a) Each search query hits the RestAPI and returns the results via HTMA and then rendered as summary stats and boxplots on the webpage.  
+### a) Each search query hits the RestAPI and returns the results via HTML. These are then rendered as summary stats and boxplots on the webpage. 
 
 <img width="946" alt="image" src="https://user-images.githubusercontent.com/85103905/207667383-0b918a9f-7201-4dca-87d6-345086380061.png">
 
@@ -25,7 +25,7 @@ def stock(request,pk):
     return render(request,'stocks.html',context)
 ```
 
-### b) The stocks historical price data is recived as a JSON file using an AJAX request and then formulated as summary stats.
+### b) The stocks historical price data is recived as a JSON file using an AJAX request (via a REST based GET command) and then formulated as summary stats in the HTML UI.
 
 <img width="957" alt="image" src="https://user-images.githubusercontent.com/85103905/207668800-3a359d69-50e3-4642-8ea9-54394630b825.png">
 
