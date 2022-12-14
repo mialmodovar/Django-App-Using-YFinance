@@ -11,7 +11,7 @@ We have built an app with Django which dynamically hits the YFinance RestAPI and
 
 Rest API
 ### 1- Create user operation
-
+```
 @uauthenticated_user
 def registerPage(request):
     form = UserForm()
@@ -25,9 +25,9 @@ def registerPage(request):
         return redirect('register')
     context = {'form' : form}
     return render(request, 'register.html', context)
-
+```
 ### 2-Reading user details and logging them in
-
+```
 @unauthenticated_user
 def loginPage(request):
     if request.method == 'POST':
@@ -41,9 +41,9 @@ def loginPage(request):
         return redirect('index')
     context = {}
     return render(request, 'login.html',context)
-
+```
 ### 3- Gets stock info from external api and returns it via html
-
+```
 @login_required(login_url= 'login')
 def stock(request,pk):
     #gets object Ticker from the ticker given in the url and gets the info and last close for it.
@@ -54,9 +54,9 @@ def stock(request,pk):
     week_ago = (datetime.date.today() - datetime.timedelta(days=21)).strftime('%m-%d-%Y')
     context = { 'ticker': pk,'today': today, 'week_ago': week_ago, 'stock':stock.info, 'close':close}
     return render(request,'stocks.html',context)
-
+```
 ### 4- Gets stock history price from external api and returns it as json
-
+```
 @login_required(login_url= 'login')
 def loadstock(request):
     #function to handle ajax request for the plot of price history
@@ -77,4 +77,4 @@ def loadstock(request):
     high = data.High.values.tolist()
     low = data.Low.values.tolist()
     return JsonResponse( {pk :{'index': index, 'close': close, 'open': open,'high': high, 'low': low}}, status = 200)
-
+```
