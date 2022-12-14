@@ -64,6 +64,9 @@ def loginPage(request):
         username= request.POST.get('username')
         password= request.POST.get('password')
         user= authenticate(request, username=username, password=password)
+        if user == None:
+             messages.error(request, 'Login information incorrect')
+             return redirect('login')
         login(request,user)
         return redirect('index')
     context = {}
@@ -83,7 +86,7 @@ def registerPage(request):
             user = form.save()
             messages.success(request, 'Your account was created')
             return redirect('login')
-        messages.success(request, 'Your password or user is invalid')
+        messages.error(request, 'Your password or user is invalid')
         return redirect('register')
     context = {'form' : form}
     return render(request, 'register.html', context)
