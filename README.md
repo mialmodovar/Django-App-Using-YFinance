@@ -29,6 +29,7 @@ def stock(request,pk):
 ```
 
 ### b) The stocks historical price data is recived as a JSON file using an AJAX request (via a REST based GET command) and then formulated as summary stats in the HTML UI.
+</n>
 
 
 <img width="957" alt="image" src="https://user-images.githubusercontent.com/85103905/207668800-3a359d69-50e3-4642-8ea9-54394630b825.png">
