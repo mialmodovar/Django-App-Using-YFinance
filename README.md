@@ -5,13 +5,16 @@
 ## Funtionality
 
 ## 1. Dynamic REST API
+
 We have built an app with Django which dynamically hits the YFinance RestAPI and displays the stocks details, charts and summaries for the stock ticker entered in the search bar. As displayed in the screenshots below the the user can filter by stock ticker name and date range. The data is retrieved based on the follwoing two ways - 
 
 ### a) Each search query hits the RestAPI and returns the results via HTML. These are then rendered as summary stats and boxplots on the webpage. 
 
+
 <img width="946" alt="image" src="https://user-images.githubusercontent.com/85103905/207667383-0b918a9f-7201-4dca-87d6-345086380061.png">
 
 ### 1.1 - Gets stock info from external api and returns it via html
+
 ```
 @login_required(login_url= 'login')
 def stock(request,pk):
@@ -27,9 +30,12 @@ def stock(request,pk):
 
 ### b) The stocks historical price data is recived as a JSON file using an AJAX request (via a REST based GET command) and then formulated as summary stats in the HTML UI.
 
+
 <img width="957" alt="image" src="https://user-images.githubusercontent.com/85103905/207668800-3a359d69-50e3-4642-8ea9-54394630b825.png">
 
+
 ### 1.2 - Gets stock history price from external api and returns it as json
+
 ```
 @login_required(login_url= 'login')
 def loadstock(request):
@@ -52,6 +58,7 @@ def loadstock(request):
     low = data.Low.values.tolist()
     return JsonResponse( {pk :{'index': index, 'close': close, 'open': open,'high': high, 'low': low}}, status = 200)
 ```
+
 ### 1.3. Setting up URLs 
 
 ```
@@ -71,12 +78,15 @@ path('register',views.registerPage,name='register')
     
 ]
 ```
+
 ## 2. User Management - 
 
 There is a user management system in place using a SQLite DB as the backend for storing persistent user data.
 The below code snippets otline how the users are created, logged in and their data persisted on the backend DB.
 
+
 ### 2.1- Create user operation
+
 ```
 @uauthenticated_user
 def registerPage(request):
@@ -92,7 +102,9 @@ def registerPage(request):
     context = {'form' : form}
     return render(request, 'register.html', context)
 ```
+
 ### 2.2 -Reading user details and logging them in
+
 ```
 @unauthenticated_user
 def loginPage(request):
