@@ -2,10 +2,17 @@
 ## Group 10 - Module ECS781P - Cloud Computing
 ### Miguel Almodovar, Venkatraman, Satyam Sharma, Shaurya Rana
 
-We have built an app with Django which dynamically hits the YFinance RestAPI and displays the stocks details, charts and summaries for the stock ticker entered in the search bar. 
+## Funtionality
 
+We have built an app with Django which dynamically hits the YFinance RestAPI and displays the stocks details, charts and summaries for the stock ticker entered in the search bar. As displayed in the screenshot below the the user can filter by stock ticker name and date range. The data is retrieved based on the follwoing two ways - 
 
+1) Each search query hits the RestAPI and returns the results via html and then rendered as summary stats and boxplots on the webpage.  
 
+<img width="946" alt="image" src="https://user-images.githubusercontent.com/85103905/207667383-0b918a9f-7201-4dca-87d6-345086380061.png">
+
+2) The stocks historical price data is recived as a JSON file using an AJAX request.
+
+<img width="957" alt="image" src="https://user-images.githubusercontent.com/85103905/207668800-3a359d69-50e3-4642-8ea9-54394630b825.png">
 
 
 
