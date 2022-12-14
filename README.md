@@ -85,3 +85,22 @@ def loadstock(request):
     low = data.Low.values.tolist()
     return JsonResponse( {pk :{'index': index, 'close': close, 'open': open,'high': high, 'low': low}}, status = 200)
 ```
+5. Setting up URLs 
+
+```
+from django.urls import path
+
+from pages import views
+
+urlpatterns = [
+path('',views.index,name='index'),
+path('search',views.search,name='search'),
+path('stock/<str:pk>',views.stock,name='stock'),
+path('get/stock', views.loadstock, name = "loadstock"),
+path('login',views.loginPage,name='login'),
+path('logout',views.logoutUser,name='logout'),
+path('register',views.registerPage,name='register')
+
+    
+]
+```
