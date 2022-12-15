@@ -143,7 +143,7 @@ Our application supports connection through HTTPS protocol. Illustrated in the s
 <img width="960" alt="image" src="https://user-images.githubusercontent.com/85103905/207945469-f6b9d5f2-f7b0-48d7-b0ac-34f4260653b7.png"> </br>
 
 
-#### 3.2. User accounts and access management with hash-based authentication
+#### 3.2. Implementing hash-based authentication.
 
 We use sha256 encryption, provided by default with django built-in authentication system.
 
@@ -153,4 +153,9 @@ We use sha256 encryption, provided by default with django built-in authenticatio
 #### 3.3. Securing the database with role-based policies
 </br>
 <img width="635" alt="image" src="https://user-images.githubusercontent.com/53450442/207748840-de56efe1-2f9b-43da-91fb-cb1413b696ff.png">
+
+#### 3.4. Implementing user accounts and access management
+</br>
+We have implemented user accounts based on the level of privileges to the app which controls the access management to the app functionalities and app backend.
+
 
