@@ -132,7 +132,7 @@ def loginPage(request):
 ```
 
 
-## 4. Security measures
+## 3. Security measures
 The Crypto Summariser aims to provide secured services to the customers. At the moment, we have implemented four security measures on our app to make sure to put customers at ease.
 #### Application serving over https
 
