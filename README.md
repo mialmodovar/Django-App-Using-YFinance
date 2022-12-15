@@ -15,7 +15,7 @@ We have built an app with Django which dynamically hits the YFinance RestAPI and
 
 ## 1. Dynamic REST API
 
-### a) Each search query hits the RestAPI and returns the results via HTML. These are then rendered as summary stats and boxplots on the webpage. 
+### a) Each search query hits the RestAPI and returns the results via HTML. These are then rendered as summary stats and charts on the webpage. 
 
 
 <img width="946" alt="image" src="https://user-images.githubusercontent.com/85103905/207667383-0b918a9f-7201-4dca-87d6-345086380061.png">
@@ -28,20 +28,24 @@ def stock(request,pk):
     #gets object Ticker from the ticker given in the url and gets the info and last close for it.
     stock = yf.Ticker(pk)
     close = "{:.2f}".format(stock.history(period='1d').Close.values.tolist()[0])
-    #sends the current day and day corresponding to a week ago to load the plot (could be done in js)
+    #sends the current day and the day corresponding to a week ago to load the plot (could be done in js)
     today = datetime.date.today().strftime('%m-%d-%Y')
     week_ago = (datetime.date.today() - datetime.timedelta(days=21)).strftime('%m-%d-%Y')
     context = { 'ticker': pk,'today': today, 'week_ago': week_ago, 'stock':stock.info, 'close':close}
     return render(request,'stocks.html',context)
 ```
 
-### b) The stocks historical price data is recived as a JSON file using an AJAX request (via a REST based GET command) and then formulated as summary stats in the HTML UI.
-<br/><br/>
+### b) The stocks historical price data is recived as a JSON file using an AJAX request (via a REST based GET command) and then displayed in a candlestick chart using JavaScript. 
+This url can also serve regular non-ajax requests, as shown below:
 
+```
+r=requests.get('http://127.0.0.1:8000/get/stock?ticker=GOOG&start=11-24-2022&finish=12-15-2022')
+print(r.json())
+```
 
-<img width="957" alt="image" src="https://user-images.githubusercontent.com/85103905/207668800-3a359d69-50e3-4642-8ea9-54394630b825.png">
-
-
+```
+{'GOOG': {'index': ['2022-11-25 00', '2022-11-28 00', '2022-11-29 00', '2022-11-30 00', '2022-12-01 00', '2022-12-02 00', '2022-12-05 00', '2022-12-06 00', '2022-12-07 00', '2022-12-08 00', '2022-12-09 00', '2022-12-12 00', '2022-12-13 00', '2022-12-14 00'], 'close': [97.5999984741211, 96.25, 95.44000244140625, 101.44999694824219, 101.27999877929688, 100.83000183105469, 99.87000274658203, 97.30999755859375, 95.1500015258789, 93.94999694824219, 93.06999969482422, 93.55999755859375, 95.8499984741211, 95.30999755859375], 'open': [98.46499633789062, 97.19999694824219, 96.0, 95.12000274658203, 101.4000015258789, 99.37000274658203, 99.81500244140625, 99.66999816894531, 96.7699966430664, 95.69000244140625, 93.9000015258789, 93.08999633789062, 98.06999969482422, 95.54000091552734], 'high': [98.94000244140625, 97.83000183105469, 96.38999938964844, 101.44999694824219, 102.58999633789062, 101.1500015258789, 101.75, 100.20999908447266, 97.30999755859375, 95.87000274658203, 94.48999786376953, 93.875, 99.80000305175781, 97.22000122070312], 'low': [97.52999877929688, 95.88999938964844, 94.38999938964844, 94.66999816894531, 100.66999816894531, 99.16999816894531, 99.3550033569336, 96.76000213623047, 95.0250015258789, 93.80000305175781, 93.0199966430664, 91.9000015258789, 95.37999725341797, 93.94000244140625]}}
+```
 ### 1.2 - Gets stock history price from external api and returns it as json
 
 ```
@@ -67,7 +71,7 @@ def loadstock(request):
     return JsonResponse( {pk :{'index': index, 'close': close, 'open': open,'high': high, 'low': low}}, status = 200)
 ```
 
-### 1.3. Setting up URLs 
+### 1.3. Setting up the URLs 
 
 ```
 from django.urls import path
@@ -81,15 +85,13 @@ path('stock/<str:pk>',views.stock,name='stock'),
 path('get/stock', views.loadstock, name = "loadstock"),
 path('login',views.loginPage,name='login'),
 path('logout',views.logoutUser,name='logout'),
-path('register',views.registerPage,name='register')
-
-    
+path('register',views.registerPage,name='register')    
 ]
 ```
 
 ## 2. User Management - 
 
-There is a user management system in place using a SQLite DB as the backend for storing persistent user data.
+There is a user management system in place using a PostgreSQL DB as the backend for storing persistent user data.
 The below code snippets otline how the users are created, logged in and their data persisted on the backend DB.
 
 
@@ -111,7 +113,7 @@ def registerPage(request):
     return render(request, 'register.html', context)
 ```
 
-### 2.2 -Reading user details and logging them in
+### 2.2 -Reading the user details and logging them in
 
 ```
 @unauthenticated_user
@@ -146,16 +148,12 @@ python -m flask run --cert=cert.pem --key=key.pem
 
 #### User accounts and access management with hash-based authentication
 
-All customers' passwords is stored after being hashed.
-```
-# Register customer information into the system
-new_user = User(email=email,
-                name=name,
-                password=generate_password_hash(password, method="sha256"))
-...
-# To reset user password
-new_password = generate_password_hash(newpwd2, method="sha256")
-````
+We use sha256 encryption, provided by default with django built-in authentication system.
+
+![image](https://user-images.githubusercontent.com/53450442/207747779-b286cb57-a96d-4d4e-afa4-e38b7175d6dd.png)
+
 
 #### Securing the database with role-based policies
-On our Google Cloud Database instance, we make sure to create role-based policies so that only authorized service user with the right role and secret key has the right to interact with it. The authorized service account is securely stored in a .env file on our server.
+
+![image](https://user-images.githubusercontent.com/53450442/207748840-de56efe1-2f9b-43da-91fb-cb1413b696ff.png)
+
