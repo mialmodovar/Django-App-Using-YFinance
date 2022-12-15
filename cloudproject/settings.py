@@ -97,11 +97,11 @@ WSGI_APPLICATION = 'cloudproject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('NAME'),
-        'USER': os.getenv('USER'),
-        'PASSWORD': os.getenv('PASSWORD'),
-        'HOST': os.getenv('HOST'),
-        'PORT': os.getenv('PORT'),
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': '5g6W8aixt2WDnJfag4rq',
+        'HOST': 'containers-us-west-158.railway.app',
+        'PORT': '7983',
     }
 }
 
