@@ -146,16 +146,8 @@ python -m flask run --cert=cert.pem --key=key.pem
 
 #### User accounts and access management with hash-based authentication
 
-All customers' passwords is stored after being hashed.
-```
-# Register customer information into the system
-new_user = User(email=email,
-                name=name,
-                password=generate_password_hash(password, method="sha256"))
-...
-# To reset user password
-new_password = generate_password_hash(newpwd2, method="sha256")
-````
+![image](https://user-images.githubusercontent.com/53450442/207747520-e984aca0-992d-4267-942e-d0cffb7207db.png)
+
 
 #### Securing the database with role-based policies
 On our Google Cloud Database instance, we make sure to create role-based policies so that only authorized service user with the right role and secret key has the right to interact with it. The authorized service account is securely stored in a .env file on our server.
