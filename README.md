@@ -93,7 +93,7 @@ path('register',views.registerPage,name='register')
 ## 2. User Management - 
 
 There is a user management system in place using a PostgreSQL DB as the backend for storing persistent user data.
-The below code snippets outline how the users are created, logged in and their data persisted on the backend DB.
+The below code snippets outline how the users are created, logged in, deleted and their data persisted on the backend DB. We implement CRUD operations on the PostrgesSQL
 
 
 ### 2.1- Create user operation
