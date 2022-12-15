@@ -15,7 +15,7 @@ We have built an app with Django which dynamically hits the YFinance RestAPI and
 
 ## 1. Dynamic REST API
 
-### a) Each search query hits the RestAPI and returns the results via HTML. These are then rendered as summary stats and boxplots on the webpage. 
+### a) Each search query hits the RestAPI and returns the results via HTML. These are then rendered as summary stats and charts on the webpage. 
 
 
 <img width="946" alt="image" src="https://user-images.githubusercontent.com/85103905/207667383-0b918a9f-7201-4dca-87d6-345086380061.png">
