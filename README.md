@@ -28,7 +28,7 @@ def stock(request,pk):
     #gets object Ticker from the ticker given in the url and gets the info and last close for it.
     stock = yf.Ticker(pk)
     close = "{:.2f}".format(stock.history(period='1d').Close.values.tolist()[0])
-    #sends the current day and day corresponding to a week ago to load the plot (could be done in js)
+    #sends the current day and the day corresponding to a week ago to load the plot (could be done in js)
     today = datetime.date.today().strftime('%m-%d-%Y')
     week_ago = (datetime.date.today() - datetime.timedelta(days=21)).strftime('%m-%d-%Y')
     context = { 'ticker': pk,'today': today, 'week_ago': week_ago, 'stock':stock.info, 'close':close}
