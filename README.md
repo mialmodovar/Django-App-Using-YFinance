@@ -4,14 +4,13 @@
 
 ## Funtionality
 
+We have built an app with Django which dynamically hits the YFinance RestAPI and displays the stocks details, charts and summaries for the stock ticker entered in the search bar. It persists the user data and login details in a PostgreSQL DB. The Dajango App and the PosgreSQL DB are both hosted on Railway Cloud (Cloud infrastructure platform similar to Heroku). The system design has been illustrated below -  
 
+## System Design - 
 
-We have built an app with Django which dynamically hits the YFinance RestAPI and displays the stocks details, charts and summaries for the stock ticker entered in the search bar. As displayed in the screenshots below the the user can filter by stock ticker name and date range. The data is retrieved based on the follwoing two ways - 
+<img width="352" alt="image" src="https://user-images.githubusercontent.com/85103905/207927282-3147d213-a46f-4226-ab06-6f80a1b8e9f7.png">
 
-### System Design - 
-
-<img width="494" alt="image" src="https://user-images.githubusercontent.com/85103905/207682421-811495d8-69d0-43ee-929d-10a08dbe3e8c.png">
-
+Within the App, the the user can filter by stock ticker name and date range. The data is retrieved based on the follwoing two ways - </br>
 
 ## 1. Dynamic REST API
 
