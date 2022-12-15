@@ -89,7 +89,7 @@ path('register',views.registerPage,name='register')
 
 ## 2. User Management - 
 
-There is a user management system in place using a SQLite DB as the backend for storing persistent user data.
+There is a user management system in place using a PostgreSQL DB as the backend for storing persistent user data.
 The below code snippets otline how the users are created, logged in and their data persisted on the backend DB.
 
 
