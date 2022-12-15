@@ -71,7 +71,7 @@ def loadstock(request):
     return JsonResponse( {pk :{'index': index, 'close': close, 'open': open,'high': high, 'low': low}}, status = 200)
 ```
 
-### 1.3. Setting up URLs 
+### 1.3. Setting up the URLs 
 
 ```
 from django.urls import path
@@ -85,9 +85,7 @@ path('stock/<str:pk>',views.stock,name='stock'),
 path('get/stock', views.loadstock, name = "loadstock"),
 path('login',views.loginPage,name='login'),
 path('logout',views.logoutUser,name='logout'),
-path('register',views.registerPage,name='register')
-
-    
+path('register',views.registerPage,name='register')    
 ]
 ```
 
@@ -115,7 +113,7 @@ def registerPage(request):
     return render(request, 'register.html', context)
 ```
 
-### 2.2 -Reading user details and logging them in
+### 2.2 -Reading the user details and logging them in
 
 ```
 @unauthenticated_user
