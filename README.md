@@ -152,4 +152,6 @@ We use sha256 encryption, provided by default with django built-in authenticatio
 
 
 #### Securing the database with role-based policies
-On our Google Cloud Database instance, we make sure to create role-based policies so that only authorized service user with the right role and secret key has the right to interact with it. The authorized service account is securely stored in a .env file on our server.
+
+![image](https://user-images.githubusercontent.com/53450442/207748840-de56efe1-2f9b-43da-91fb-cb1413b696ff.png)
+
