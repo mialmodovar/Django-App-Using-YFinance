@@ -8,7 +8,8 @@ We have built an app with Django which dynamically hits the YFinance RestAPI and
 
 ## System Design - 
 
-<img width="352" alt="image" src="https://user-images.githubusercontent.com/85103905/207927282-3147d213-a46f-4226-ab06-6f80a1b8e9f7.png">
+<img width="635" alt="image" src="https://user-images.githubusercontent.com/85103905/207928380-ad9b322d-20f5-441b-bfd8-c0ba0ef2e4ac.png">
+
 
 Within the App, the the user can filter by stock ticker name and date range. The data is retrieved based on the follwoing two ways - </br>
 
