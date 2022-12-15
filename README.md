@@ -146,7 +146,7 @@ python -m flask run --cert=cert.pem --key=key.pem
 
 #### User accounts and access management with hash-based authentication
 
-![image](https://user-images.githubusercontent.com/53450442/207747520-e984aca0-992d-4267-942e-d0cffb7207db.png)
+![image](https://user-images.githubusercontent.com/53450442/207747779-b286cb57-a96d-4d4e-afa4-e38b7175d6dd.png)
 
 
 #### Securing the database with role-based policies
