@@ -40,8 +40,8 @@ This url can also serve regular non-ajax requests, as shown below:
 
 <br/><br/>
 
+![image](https://user-images.githubusercontent.com/53450442/207770346-042f2530-aa24-4e9a-9fcf-3808b772ee66.png)
 
-<img width="957" alt="image" src="https://user-images.githubusercontent.com/85103905/207668800-3a359d69-50e3-4642-8ea9-54394630b825.png">
 
 
 ### 1.2 - Gets stock history price from external api and returns it as json
