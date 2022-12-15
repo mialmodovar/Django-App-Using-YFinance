@@ -63,6 +63,7 @@ def loginPage(request):
         username= request.POST.get('username')
         password= request.POST.get('password')
         user= authenticate(request, username=username, password=password)
+        #checks if user and password match exist in db
         if user == None:
              messages.error(request, 'Login information incorrect')
              return redirect('login')

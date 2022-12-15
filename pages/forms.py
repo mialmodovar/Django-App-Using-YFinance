@@ -3,9 +3,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.forms import ModelForm
 
-# Form de login
 
-    #Form de criação do user
+
+#Creation user form
 class UserForm(UserCreationForm):
     class Meta:
         model = User
