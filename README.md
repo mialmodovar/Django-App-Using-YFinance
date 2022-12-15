@@ -35,7 +35,9 @@ def stock(request,pk):
     return render(request,'stocks.html',context)
 ```
 
-### b) The stocks historical price data is recived as a JSON file using an AJAX request (via a REST based GET command) and then displayed in a candlestick chart using JavaScript. This url can also serve regular non-ajax requests, as shown below:
+### b) The stocks historical price data is recived as a JSON file using an AJAX request (via a REST based GET command) and then displayed in a candlestick chart using JavaScript. 
+This url can also serve regular non-ajax requests, as shown below:
+
 <br/><br/>
 
 
