@@ -55,7 +55,6 @@ def loadstock(request):
 def search(request):
     #redirects user to a stock page corresponding to the query given
     query = request.GET.get("query")
-    print(query)
     return redirect(reverse("stock",kwargs={'pk':str(query)}))
     
 @unauthenticated_user
