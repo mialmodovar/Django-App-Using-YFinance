@@ -153,7 +153,7 @@ We use sha256 encryption, provided by default with django built-in authenticatio
 
 <img width="635" alt="image" src="https://user-images.githubusercontent.com/53450442/207747779-b286cb57-a96d-4d4e-afa4-e38b7175d6dd.png">
 
-</br>
+
 #### 3.3. Securing the database with role-based policies
 </br>
 <img width="635" alt="image" src="https://user-images.githubusercontent.com/53450442/207748840-de56efe1-2f9b-43da-91fb-cb1413b696ff.png">
