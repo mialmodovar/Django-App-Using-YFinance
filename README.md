@@ -2,6 +2,8 @@
 ## Group 10 - Module ECS781P - Cloud Computing
 ### Miguel Almodovar, Venkatraman Suresh, Satyam Sharma, Shaurya Rana
 
+Youtube video: youtube.com/watch?v=mWq5jiws6OA
+
 ## Funtionality
 
 We have built an app with Django which dynamically hits the YFinance RestAPI and displays the stocks details, charts and summaries for the stock ticker entered in the search bar. It persists the user data and login details in a PostgresSQL DB. The Dajango App and the PosgresSQL DB are both hosted on Railway Cloud (Cloud infrastructure platform similar to Heroku). The system design has been illustrated below -  
