@@ -4,7 +4,7 @@
 
 ## Funtionality
 
-We have built an app with Django which dynamically hits the YFinance RestAPI and displays the stocks details, charts and summaries for the stock ticker entered in the search bar. It persists the user data and login details in a PostgreSQL DB. The Dajango App and the PosgreSQL DB are both hosted on Railway Cloud (Cloud infrastructure platform similar to Heroku). The system design has been illustrated below -  
+We have built an app with Django which dynamically hits the YFinance RestAPI and displays the stocks details, charts and summaries for the stock ticker entered in the search bar. It persists the user data and login details in a PostgresSQL DB. The Dajango App and the PosgresSQL DB are both hosted on Railway Cloud (Cloud infrastructure platform similar to Heroku). The system design has been illustrated below -  
 
 ## System Design - 
 
@@ -35,7 +35,8 @@ def stock(request,pk):
     return render(request,'stocks.html',context)
 ```
 
-### b) The stocks historical price data is recived as a JSON file using an AJAX request (via a REST based GET command) and then displayed in a candlestick chart using JavaScript. 
+### b) The stocks historical price data is recived as a JSON file using an AJAX request (via a REST based GET command) and then displayed in a candlestick chart using JavaScript. </br>
+
 This url can also serve regular non-ajax requests, as shown below:
 
 ```
@@ -133,7 +134,8 @@ def loginPage(request):
 
 
 ## 3. Security measures
-The Crypto Summariser aims to provide secured services to the customers. At the moment, we have implemented four security measures on our app to make sure to put customers at ease.
+The Django App aims to provide secured services to the customers. We have implemented four security measures on our app to make sure to put customers at ease. </br>
+
 #### Application serving over https
 
 Our application supports connection through HTTPS protocol with our certificate stored securely on the server.
@@ -145,14 +147,14 @@ export FLASK_DEBUG=1
 python -m flask run --cert=cert.pem --key=key.pem
 
 ````
-
+</br>
 #### User accounts and access management with hash-based authentication
 
 We use sha256 encryption, provided by default with django built-in authentication system.
 
 ![image](https://user-images.githubusercontent.com/53450442/207747779-b286cb57-a96d-4d4e-afa4-e38b7175d6dd.png)
 
-
+</br>
 #### Securing the database with role-based policies
 
 ![image](https://user-images.githubusercontent.com/53450442/207748840-de56efe1-2f9b-43da-91fb-cb1413b696ff.png)
