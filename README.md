@@ -138,15 +138,11 @@ The Django App aims to provide secured services to the customers. We have implem
 
 #### 3.1. Application serving over https
 
-Our application supports connection through HTTPS protocol with our certificate stored securely on the server.
-```
-#!/usr/bin/env bash
+Our application supports connection through HTTPS protocol. Illustrated in the screenshot below -   </br>
 
-export FLASK_APP=app_auth
-export FLASK_DEBUG=1
-python -m flask run --cert=cert.pem --key=key.pem
+<img width="960" alt="image" src="https://user-images.githubusercontent.com/85103905/207945469-f6b9d5f2-f7b0-48d7-b0ac-34f4260653b7.png"> </br>
 
-````
+
 #### 3.2. User accounts and access management with hash-based authentication
 
 We use sha256 encryption, provided by default with django built-in authentication system.
