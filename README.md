@@ -158,4 +158,5 @@ We use sha256 encryption, provided by default with django built-in authenticatio
 </br>
 We have implemented user accounts based on the level of privileges to the app which controls the access management to the app functionalities and app backend.
 
+![image](https://user-images.githubusercontent.com/114230896/207946883-8cb78516-2e3b-4df2-a58f-1ba11650cdf9.png)
 
