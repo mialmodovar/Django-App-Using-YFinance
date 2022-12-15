@@ -30,6 +30,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://django-app-using-yfinance-production.up.railway.app'
+]
+
 
 # Application definition
 
