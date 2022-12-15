@@ -147,7 +147,6 @@ export FLASK_DEBUG=1
 python -m flask run --cert=cert.pem --key=key.pem
 
 ````
-</br>
 #### 3.2. User accounts and access management with hash-based authentication
 
 We use sha256 encryption, provided by default with django built-in authentication system.
