@@ -93,7 +93,7 @@ path('register',views.registerPage,name='register')
 ## 2. User Management - 
 
 There is a user management system in place using a PostgreSQL DB as the backend for storing persistent user data.
-The below code snippets otline how the users are created, logged in and their data persisted on the backend DB.
+The below code snippets outline how the users are created, logged in and their data persisted on the backend DB.
 
 
 ### 2.1- Create user operation
@@ -136,7 +136,7 @@ def loginPage(request):
 ## 3. Security measures
 The Django App aims to provide secured services to the customers. We have implemented four security measures on our app to make sure to put customers at ease. </br>
 
-#### Application serving over https
+#### 3.1. Application serving over https
 
 Our application supports connection through HTTPS protocol with our certificate stored securely on the server.
 ```
@@ -148,14 +148,14 @@ python -m flask run --cert=cert.pem --key=key.pem
 
 ````
 </br>
-#### User accounts and access management with hash-based authentication
+#### 3.2. User accounts and access management with hash-based authentication
 
 We use sha256 encryption, provided by default with django built-in authentication system.
 
 ![image](https://user-images.githubusercontent.com/53450442/207747779-b286cb57-a96d-4d4e-afa4-e38b7175d6dd.png)
 
 </br>
-#### Securing the database with role-based policies
-
+#### 3.3. Securing the database with role-based policies
+</br>
 ![image](https://user-images.githubusercontent.com/53450442/207748840-de56efe1-2f9b-43da-91fb-cb1413b696ff.png)
 
