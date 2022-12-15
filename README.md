@@ -2,7 +2,6 @@
 ## Group 10 - Module ECS781P - Cloud Computing
 ### Miguel Almodovar, Venkatraman Suresh, Satyam Sharma, Shaurya Rana
 
-<i>youtube.com/watch?v=mWq5jiws6OA</i>
 
 ## Funtionality
 
